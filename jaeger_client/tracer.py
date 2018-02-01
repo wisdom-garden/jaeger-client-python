@@ -91,10 +91,11 @@ class Tracer(opentracing.Tracer):
         except:
             logger.exception('Unable to determine host name')
 
-        self.reporter.set_process(
-            service_name=self.service_name,
-            tags=self.tags,
-            max_length=self.max_tag_value_length,
+        if self.reporter:
+            self.reporter.set_process(
+                service_name=self.service_name,
+                tags=self.tags,
+                max_length=self.max_tag_value_length,
         )
 
     def start_span(self,
@@ -201,8 +202,9 @@ class Tracer(opentracing.Tracer):
         :return: Returns a concurrent.futures.Future that indicates if the
             flush has been completed.
         """
-        self.sampler.close()
-        return self.reporter.close()
+        if self.reporter:
+            self.reporter.close()
+        return self.sampler.close()
 
     def _emit_span_metrics(self, span, join=False):
         if span.is_sampled():
@@ -223,7 +225,8 @@ class Tracer(opentracing.Tracer):
         return span
 
     def report_span(self, span):
-        self.reporter.report_span(span)
+        if self.reporter:
+            self.reporter.report_span(span)
 
     def random_id(self):
         return self.random.getrandbits(constants.MAX_ID_BITS)

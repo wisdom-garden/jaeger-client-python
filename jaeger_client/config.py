@@ -287,20 +287,20 @@ class Config(object):
                 max_operations=self.max_operations)
         logger.info('Using sampler %s', sampler)
 
-        reporter = Reporter(
-            channel=channel,
-            queue_capacity=self.reporter_queue_size,
-            batch_size=self.reporter_batch_size,
-            flush_interval=self.reporter_flush_interval,
-            logger=logger,
-            metrics_factory=self._metrics_factory,
-            error_reporter=self.error_reporter)
+        # reporter = Reporter(
+        #     channel=channel,
+        #     queue_capacity=self.reporter_queue_size,
+        #     batch_size=self.reporter_batch_size,
+        #     flush_interval=self.reporter_flush_interval,
+        #     logger=logger,
+        #     metrics_factory=self._metrics_factory,
+        #     error_reporter=self.error_reporter)
 
-        if self.logging:
-            reporter = CompositeReporter(reporter, LoggingReporter(logger))
+        # if self.logging:
+        #     reporter = CompositeReporter(reporter, LoggingReporter(logger))
 
         tracer = self.create_tracer(
-            reporter=reporter,
+            reporter=None,
             sampler=sampler,
         )
 
