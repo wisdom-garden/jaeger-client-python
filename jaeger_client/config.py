@@ -32,7 +32,7 @@ from .sampler import (
     ConstSampler,
     ProbabilisticSampler,
     RateLimitingSampler,
-    RemoteControlledSampler,
+    # RemoteControlledSampler,
 )
 from .constants import (
     DEFAULT_SAMPLING_INTERVAL,
@@ -275,17 +275,18 @@ class Config(object):
             Config._initialized = True
 
         channel = self._create_local_agent_channel(io_loop=io_loop)
-        sampler = self.sampler
-        if sampler is None:
-            sampler = RemoteControlledSampler(
-                channel=channel,
-                service_name=self.service_name,
-                logger=logger,
-                metrics_factory=self._metrics_factory,
-                error_reporter=self.error_reporter,
-                sampling_refresh_interval=self.sampling_refresh_interval,
-                max_operations=self.max_operations)
-        logger.info('Using sampler %s', sampler)
+        sampler = None
+        # sampler = self.sampler
+        # if sampler is None:
+        #     sampler = RemoteControlledSampler(
+        #         channel=channel,
+        #         service_name=self.service_name,
+        #         logger=logger,
+        #         metrics_factory=self._metrics_factory,
+        #         error_reporter=self.error_reporter,
+        #         sampling_refresh_interval=self.sampling_refresh_interval,
+        #         max_operations=self.max_operations)
+        # logger.info('Using sampler %s', sampler)
 
         # reporter = Reporter(
         #     channel=channel,
