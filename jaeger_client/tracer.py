@@ -142,13 +142,14 @@ class Tracer(opentracing.Tracer):
             flags = 0
             baggage = None
             if parent is None:
-                sampled, sampler_tags = \
-                    self.sampler.is_sampled(trace_id, operation_name)
-                if sampled:
-                    flags = SAMPLED_FLAG
-                    tags = tags or {}
-                    for k, v in six.iteritems(sampler_tags):
-                        tags[k] = v
+                pass
+                # sampled, sampler_tags = \
+            #         self.sampler.is_sampled(trace_id, operation_name)
+            #     if sampled:
+            #         flags = SAMPLED_FLAG
+            #         tags = tags or {}
+            #         for k, v in six.iteritems(sampler_tags):
+            #             tags[k] = v
             else:  # have debug id
                 flags = SAMPLED_FLAG | DEBUG_FLAG
                 tags = tags or {}
@@ -202,9 +203,9 @@ class Tracer(opentracing.Tracer):
         :return: Returns a concurrent.futures.Future that indicates if the
             flush has been completed.
         """
-        if self.reporter:
-            self.reporter.close()
-        return self.sampler.close()
+        pass
+        # self.sampler.close()
+        # return self.reporter.close()
 
     def _emit_span_metrics(self, span, join=False):
         if span.is_sampled():
