@@ -36,12 +36,12 @@ setup(
     ],
     install_requires=[
         # 'futures;python_version<"3"',
-        'threadloop>=1,<2',
+        'future',
+        'threadloop==1.0.2.dev0',
         # we want thrift>=0.9.2.post1,<0.9.3, but we let the users pin to that
         'thrift',
         'tornado>=4.3,<5',
         'opentracing>=1.2.2,<1.4',
-        'future',
     ],
     # Uncomment below if need to test with unreleased version of opentracing
     # dependency_links=[
